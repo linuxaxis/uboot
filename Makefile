@@ -1838,8 +1838,8 @@ omap4430sdp_config :    unconfig
 		echo "Configuring for OMAP4 Tablet .... "; \
 	fi;
 
-omap4430panda_config :    unconfig
-	@./mkconfig $(@:_config=) arm omap4 omap4430panda
+omap44XXpanda_config :    unconfig
+	@./mkconfig $(@:_config=) arm omap4 omap44XXpanda
 
 #========================================================================
 # i386

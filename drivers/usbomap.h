@@ -29,7 +29,7 @@
 
 #include "musb_regs.h"
 
-#if defined(CONFIG_OMAP4430)
+#if (defined(CONFIG_OMAP4430) || defined(CONFIG_OMAP44XX))
 #define OMAP34XX_USB_BASE	   (OMAP44XX_CORE_L4_IO_BASE + 0xAB000)
 #elif defined(CONFIG_OMAP3430)
 #define OMAP34XX_USB_BASE          (OMAP34XX_CORE_L4_IO_BASE + 0xAB000)

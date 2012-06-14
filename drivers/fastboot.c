@@ -93,7 +93,7 @@ static volatile u32 *peri_dma_count	= (volatile u32 *) OMAP_USB_DMA_COUNT_CH(DMA
 #define DEVICE_BCD        0x0100;
 
 /* This is used to get the serial number */
-#if defined(CONFIG_4430SDP) || defined(CONFIG_4430PANDA)
+#if defined(CONFIG_4430SDP) || defined(CONFIG_44XXPANDA)
 #define DIE_ID_REG_BASE		(OMAP44XX_L4_IO_BASE + 0x2000)
 #define DIE_ID_REG_OFFSET		0x200
 #define MAX_USB_SERIAL_NUM              17
@@ -234,7 +234,7 @@ static void fastboot_bulk_endpoint_reset (void)
 	 * The extent is now double and must be considered if another fifo is
 	 * added to the end of this one.
 	 */
-#if defined(CONFIG_4430PANDA)
+#if defined(CONFIG_44XXPANDA)
 	if (high_speed)
 		*rxfifosz =
 			RX_ENDPOINT_MAXIMUM_PACKET_SIZE_BITS_2_0;
@@ -1166,7 +1166,7 @@ int fastboot_poll(void)
 #define OMAP44XX_WKUP_CTRL_BASE 0x4A31E000
 #define OMAP44XX_CTRL_BASE 0x4A100000
 
-#if defined(CONFIG_4430PANDA)
+#if defined(CONFIG_44XXPANDA)
 	if (cpu_rev >= OMAP4460_REV_ES1_0) {
 		reg = OMAP44XX_CTRL_BASE + CONTROL_PADCONF_ABE_MCBSP2_CLKX;
 		pull = (1 << 4) | 0x1b;
@@ -1460,7 +1460,7 @@ int fastboot_preboot(void)
 	}
 #endif /* Endif for 4430sdp */
 
-#if defined(CONFIG_4430PANDA)
+#if defined(CONFIG_44XXPANDA)
 	/* On Panda: 4430: GPIO_121 button pressed causes to enter fastboot
 	 * 	     4460: GPIO_113 button pressed causes to enter fastboot */
 	int cpu_rev = get_cpu_rev();
@@ -1512,7 +1512,7 @@ start_recovery:
 
 			/* pass: booti mmci<N> recovery */
 			strcpy(cmd[0], "booti");
-#if defined(CONFIG_4430PANDA)
+#if defined(CONFIG_44XXPANDA)
 			strcpy(cmd[1], "mmc0");
 #else
 			strcpy(cmd[1], "mmc1");
@@ -1567,7 +1567,7 @@ int fastboot_init(struct cmd_fastboot_interface *interface)
 		device_strings[DEVICE_STRING_PRODUCT_INDEX] = "Blaze_Tablet";
 	else
 		device_strings[DEVICE_STRING_PRODUCT_INDEX] = "Blaze";
-#elif defined(CONFIG_4430PANDA)
+#elif defined(CONFIG_44XXPANDA)
 	device_strings[DEVICE_STRING_PRODUCT_INDEX]       = "panda";
 #else
 	/* Default, An error message to prompt user */
@@ -1575,7 +1575,7 @@ int fastboot_init(struct cmd_fastboot_interface *interface)
 
 #endif
 
-#if defined(CONFIG_4430SDP) || defined(CONFIG_4430PANDA)
+#if defined(CONFIG_4430SDP) || defined(CONFIG_44XXPANDA)
 	unsigned int val[4] = { 0 };
 	unsigned int reg;
 	static char device_serial[MAX_USB_SERIAL_NUM];
@@ -1597,7 +1597,7 @@ int fastboot_init(struct cmd_fastboot_interface *interface)
 	device_strings[DEVICE_STRING_CONFIG_INDEX]        = "Android Fastboot";
 	device_strings[DEVICE_STRING_INTERFACE_INDEX]     = "Android Fastboot";
 
-#if defined(CONFIG_4430SDP) || defined(CONFIG_4430PANDA)
+#if defined(CONFIG_4430SDP) || defined(CONFIG_44XXPANDA)
 
 	cpu_version = get_cpu_type();
 	if (cpu_version == CPU_4430)
@@ -1657,7 +1657,7 @@ int fastboot_init(struct cmd_fastboot_interface *interface)
 	fastboot_interface = interface;
 	fastboot_interface->product_name                  = device_strings[DEVICE_STRING_PRODUCT_INDEX];
 	fastboot_interface->serial_no                     = device_strings[DEVICE_STRING_SERIAL_NUMBER_INDEX];
-#if defined(CONFIG_4430SDP) || defined(CONFIG_4430PANDA)
+#if defined(CONFIG_4430SDP) || defined(CONFIG_44XXPANDA)
 	fastboot_interface->storage_medium                = EMMC;
 	fastboot_interface->proc_rev			  = device_strings[DEVICE_STRING_PROC_REVISION];
 	fastboot_interface->proc_type			  = device_strings[DEVICE_STRING_PROC_TYPE];
